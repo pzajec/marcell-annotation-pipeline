@@ -13,10 +13,6 @@ $ ./build.sh
 ```
 
 ### Deploying
-Before deploying make sure, that you set your host volume paths according to your needs:
-    <host data dir> - Replace this with the path on your host machine, where you want the pipeline to temporarily store files, that are being processed.
-    <host models dir> - This should be the path on your host machine, where you downloaded your models (e.g. with `get-models.sh`).
-
 Run with docker-compose:
 
 ```console
@@ -27,10 +23,7 @@ or manually:
 
 ```console
 $ docker run --name obeliks4j-classla-stanfordnlp -d \
-    -v <host data dir>:/data \
-    -v <host models dir>:/pipeline/models \
-    -p 127.0.0.1:5000:80
-    -e DATA_DIR=/data
+    -p 127.0.0.1:5000:80 \
     obeliks4j-classla-stanfordnlp:latest
 ```
 

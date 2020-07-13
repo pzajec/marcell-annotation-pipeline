@@ -5,9 +5,5 @@ services:
     #runtime: nvidia
     ports:
         - 127.0.0.1:5000:80
-    environment:
-        - DATA_DIR=/data
-        #- NVIDIA_VISIBLE_DEVICES=all
-    volumes:
-        - <host data dir>:/data
-        - <host model dir>:/pipeline/models
+    #environment:
+    #    - NVIDIA_VISIBLE_DEVICES=all

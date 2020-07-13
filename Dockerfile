@@ -16,6 +16,7 @@ RUN javac -encoding UTF-8 src/main/java/org/obeliks/*.java -d target/classes && 
 
 RUN pip install --no-cache-dir flask gunicorn && \
     mkdir /pipeline
+COPY models /pipeline/
 WORKDIR /pipeline
 COPY pipeline_api.py wsgi.py /pipeline/
 
