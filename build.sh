@@ -7,6 +7,4 @@ git clone https://github.com/msinkec/classla-stanfordnlp
 # Download models
 ./get-models.sh
 
-echo "test"
-
 docker build -t obeliks4j-classla-stanfordnlp:latest .

@@ -92,7 +92,6 @@ def run_stanfordnlp(text, standoff_metadata, docid):
     conll_file = CoNLLFile(input_str=text)
     doc.conll_file = conll_file
 
-    print(text)
     # Start processing.
     res = nlp(doc)
 
