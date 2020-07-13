@@ -56,6 +56,7 @@ An example of standoff metadata:
 
 ```json
 {
+    "doc_id":"sl-test123",
     "language":"sl",
     "date":"2020-06-30",
     "title":"Poskusni dokument",
@@ -67,7 +68,7 @@ An example of standoff metadata:
 You can test the API with cURL:
 
 ```console
-$ curl -X POST -F 'text=Pozdravljen, svet!' -F 'meta={"language":"sl", "date":"2020-06-30", "title":"Poskusni dokument", "type":"poskus", "entype":"test"}' -F 'docid=sl-test123'  http://localhost:5000/annotate 
+$ curl -X POST -F 'text=Pozdravljen, svet!' -F 'meta={"doc_id":"sl-test123", "language":"sl", "date":"2020-06-30", "title":"Poskusni dokument", "type":"poskus", "entype":"test"}' http://localhost:5000/annotate 
 ```
 
 

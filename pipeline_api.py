@@ -96,7 +96,7 @@ def run_stanfordnlp(text, standoff_metadata, docid):
     res = nlp(doc)
 
     # Append CONLLU-P metadata.
-    rows = create_metadata(standoff_metadata, docid)
+    rows = create_metadata(standoff_metadata)
 
     for line in res.conll_file.conll_as_string().splitlines():
         if not line.startswith('#') and len(line) > 0 and not line.isspace():
@@ -119,15 +119,14 @@ def run_stanfordnlp(text, standoff_metadata, docid):
     return '\n'.join(rows)
 
 
-def create_metadata(standoff_metadata, docid):
+def create_metadata(standoff_metadata):
     res = []
 
     res.append('# global.columns = ID FORM LEMMA UPOS XPOS FEATS HEAD DEPREL DEPS MISC')
-    res.append('# newdoc id = {}'.format(docid))
+    res.append('# newdoc id = {}'.format(standoff_metadata['doc_id']))
 
     for key in meta_fields:
         if key not in standoff_metadata:
-            cleanup(res_dir)
             raise InvalidParams('Missing key "{}" in standoff metadata.'.format(key))
 
         val = standoff_metadata[key]
@@ -139,10 +138,6 @@ def create_metadata(standoff_metadata, docid):
     return res
 
 
-def cleanup(res_dir):
-    shutil.rmtree(res_dir)
-
-
 @app.route('/annotate', methods=['POST'])
 def run_pipeline():
     # Raw text for processing
@@ -151,19 +146,16 @@ def run_pipeline():
     # Standoff metadata in JSON format
     meta = request.form.get('meta')
 
-    # Document ID to be inserted into final CONLLU-P result
-    docid = request.form.get('docid')
-
     # Check input validity
     check_form_data(text, meta, docid)
 
-    standoff_metadata =  json.loads(meta)
+    standoff_metadata = json.loads(meta)
 
     # Run Obeliks4J for tokenization
     out = run_obeliks4J(text)
 
     # Run StanfordNLP pipeline on Obeliks4J output
-    out = run_stanfordnlp(out, standoff_metadata, docid)
+    out = run_stanfordnlp(out, standoff_metadata)
 
     return out, 200
 
