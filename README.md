@@ -50,7 +50,6 @@ and uncomment lines containing `nvidia` in `docker-compose.yml`.
 The API is listening for HTTP POST requests under the `/annotate` path containing the following form data:
     - "text": raw text data
     - "meta": standoff metadata in JSON format
-    - "docid": CONLLUP document ID
 
 An example of standoff metadata:
 
