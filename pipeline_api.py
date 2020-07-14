@@ -49,24 +49,18 @@ class InvalidParams(Exception):
         self.status_code = status_code
 
 
-def check_form_data(text, meta, docid):
+def check_form_data(text, meta):
     if text is None:
         raise InvalidParams('Missing "text" form data inside request.')
 
     if meta is None:
         raise InvalidParams('Missing "meta" form data inside request.')
 
-    if docid is None:
-        raise InvalidParams('Missing "docid" form data inside request.')
-
     if text.isspace():
         raise InvalidParams('Form data inside "text" is empty.')
 
     if meta.isspace():
         raise InvalidParams('Form data inside "meta" is empty.')
-
-    if docid.isspace():
-        raise InvalidParams('Form data inside "docid" is empty.')
 
 
 def run_obeliks4J(text):
@@ -84,7 +78,7 @@ def run_obeliks4J(text):
     
     
 
-def run_stanfordnlp(text, standoff_metadata, docid):
+def run_stanfordnlp(text, standoff_metadata):
     # Because we already have CoNLL-U formated input, we need to skip the tokenization step.
     # This currently done by setting the Documents text parameter as None. After that we also
     # have to manually create a CoNLLFile instance and append it to the Document.
@@ -147,7 +141,7 @@ def run_pipeline():
     meta = request.form.get('meta')
 
     # Check input validity
-    check_form_data(text, meta, docid)
+    check_form_data(text, meta)
 
     standoff_metadata = json.loads(meta)
 
