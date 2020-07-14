@@ -67,8 +67,7 @@ def run_obeliks4J(text):
     args = ['java', '-jar', str(obeliks4J_path), '-d']
     child = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
-    b = bytearray()
-    b.extend(map(ord, text))
+    b = text.encode('utf-8')
 
     child.stdin.write(b)
     out = child.communicate()[0]
