@@ -96,15 +96,25 @@ def run_stanfordnlp(text, standoff_metadata):
             # Because stanfordnlp returns in the basic CONLLU format, we need to move
             # the NER values from the MISC column to a separate one.
             vals = line.split('\t')
+
+            # Add empty columns to fite the CONLLU Plus format.
+            vals += 4 * ['_']
+
             misc_vals = vals[9].split('|')
 
             new_misc = []
             for misc_val in misc_vals:
                 if misc_val.startswith('NER='):
-                    vals.append(misc_val)
+                    vals[10] = misc_val.replace('NER=', '')
                 else:
                     new_misc.append(misc_val)
-            vals[9] = '|'.join(new_misc)
+
+            if len(new_misc) == 0:
+                vals[9] = '_'
+            else:
+                vals[9] = '|'.join(new_misc)
+
+
             rows.append('\t'.join(vals))
         else:
             rows.append(line)
@@ -115,7 +125,7 @@ def run_stanfordnlp(text, standoff_metadata):
 def create_metadata(standoff_metadata):
     res = []
 
-    res.append('# global.columns = ID FORM LEMMA UPOS XPOS FEATS HEAD DEPREL DEPS MISC')
+    res.append('# global.columns = ID FORM LEMMA UPOS XPOS FEATS HEAD DEPREL DEPS MISC MARCELL:NE MARCELL:NP MARCELL:IATE MARCELL:EUROVOC')
     res.append('# newdoc id = {}'.format(standoff_metadata['doc_id']))
 
     for key in meta_fields:
