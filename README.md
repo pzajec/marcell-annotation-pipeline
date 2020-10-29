@@ -19,58 +19,13 @@ Run with docker-compose:
 $ docker-compose up -d
 ```
 
-or manually:
+### Usage - Anonymization API
 
-```console
-$ docker run --name obeliks4j-classla-stanfordnlp -d \
-    -p 127.0.0.1:5000:80 \
-    obeliks4j-classla-stanfordnlp:latest
-```
-
-### GPU support
-To enable Docker GPU support on your host, please refer to the [Nvidia docs](https://developer.nvidia.com/nvidia-container-runtime).
-Once you have nvidia-container-runtime set up, you can add the folowing runtime definition to `/etc/docker/daemon.json`:
-
-```json
-{
-    "runtimes": {
-        "nvidia": {
-            "path": "/usr/bin/nvidia-container-runtime",
-            "runtimeArgs": []
-        }
-    }
-}
-```
-
-and uncomment lines containing `nvidia` in `docker-compose.yml`.
-
-
-# Usage
-
-The API is listening for HTTP POST requests under the `/annotate` path containing the following form data:
-    - "text": raw text data
-    - "meta": standoff metadata in JSON format
-
-An example of standoff metadata:
-
-```json
-{
-    "doc_id":"sl-test123",
-    "language":"sl",
-    "date":"2020-06-30",
-    "title":"Poskusni dokument",
-    "type":"poskus",
-    "entype":"test"
-}
-```
+The Anonymization API is listening for HTTP POST requests on port 5001 under the `/anonymize` path.
+File in ***xml*** format should be passed via `--data-binary` option with content type set to  `application/octet-stream`.
 
 You can test the API with cURL:
 
 ```console
-$ curl -X POST -F 'text=Pozdravljen, svet!' -F 'meta={"doc_id":"sl-test123", "language":"sl", "date":"2020-06-30", "title":"Poskusni dokument", "type":"poskus", "entype":"test"}' http://localhost:5000/annotate 
+$ curl -X POST --data-binary @<path_to_xml> -H "Content-Type: application/octet-stream" http://localhost:5001/anonymize 
 ```
-
-
-# Issues
-
-- Preloading with Gunicorn doesn't work yet. Thus every worker has to load the whole pipeline separately in memory, instead of just using one instance.
