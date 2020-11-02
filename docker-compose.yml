@@ -4,7 +4,6 @@ services:
     image: obeliks4j-classla-stanfordnlp:latest
     #runtime: nvidia
     ports:
-        - 127.0.0.1:5000:80
-        - 127.0.0.1:5001:81
+        - 127.0.0.1:5000:5001
     #environment:
     #    - NVIDIA_VISIBLE_DEVICES=all
