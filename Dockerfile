@@ -28,6 +28,8 @@ RUN pip install --no-cache-dir bs4 lxml pandas requests_toolbelt && \
 WORKDIR /anonymization
 COPY anonymization/anon_api.py anonymization/utils.py \
     anonymization/wsgi.py /anonymization/
+COPY anonymization/static /anonymization/static
+COPY anonymization/templates /anonymization/templates
 
 COPY supervisor /supervisor
 
