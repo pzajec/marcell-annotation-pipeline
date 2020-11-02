@@ -20,7 +20,7 @@ def query_pipeline(chunks):
     }
     payload = MultipartEncoder(data)
 
-    response = requests.post('http://localhost:80/annotate', 
+    response = requests.post('http://localhost:5000/annotate', 
                             data=payload, headers={'Content-Type': payload.content_type})
     return response
 
