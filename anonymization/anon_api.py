@@ -38,7 +38,6 @@ def run_pipeline_text():
     })
 
     response = query_pipeline(chunks)
-    print(response)
     meta, sents = parse_conll(response.text)
     html_doc = generate_html(sents)
 
