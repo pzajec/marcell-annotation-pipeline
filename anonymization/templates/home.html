@@ -16,7 +16,7 @@
     <div class="container">
         <div class='row'>
             <div class='col'>
-                <u>Besedilo za anonimizacijo:</u>
+                <u>Vnesi besedilo za anonimizacijo:</u>
             </div>
         </div>
         <div class="row">
@@ -31,13 +31,31 @@
         <div class='row'>
             <div class="col">
                 <div class='text-center'>
-                    <button type="button" class="btn btn-primary" id="anonButton">Anonimiziraj</button>
+                    <button type="button" class="btn btn-primary" id="anonButton">
+                        <span id='anonButtonSpin' style='visibility: hidden;' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span>Anonimiziraj besedilo</span>
+                    </button>
                 </div>
             </div>
         </div>
         <div class='row'>
             <div class='col'>
-                <u>Anonimizirano besedilo:</u>
+                <u>ali naloži datoteko:</u>
+            </div>
+        </div>
+        <div class='row'>
+            <div class="col">
+                <form id="data" method="post" enctype="multipart/form-data">
+                    <input name="the_file" type="file" class="form-control-file" />
+                    <input type="submit"   value="Anonimiziraj datoteko">
+                        <span id='anonFileSpin' style='visibility: hidden;' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </input>
+                </form>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col'>
+                <b><u>Anonimizirano besedilo:</u></b>
             </div>
         </div>
         <div class="row">

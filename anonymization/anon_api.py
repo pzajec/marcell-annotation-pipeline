@@ -28,6 +28,23 @@ def parse_xml(xml_doc):
 def hello_world():
     return render_template('home.html')
 
+@app.route('/submit', methods=['POST'])
+def submit_file():
+    storage = request.files['the_file']
+    
+    xml_doc = storage.read().decode('utf-8-sig')
+    chunks = parse_xml(xml_doc)
+    
+    response = query_pipeline(chunks)
+    meta, sents = parse_conll(response.text)
+    html_doc = generate_html(sents)
+   
+    return Response(
+        response=html_doc, 
+        status=200, 
+        mimetype="application/html")
+
+
 @app.route('/anonymizetext', methods=['POST'])
 def run_pipeline_text():
     text = request.data.decode('utf-8')
