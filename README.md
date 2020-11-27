@@ -34,10 +34,11 @@ $ curl -X POST --data-binary @<path_to_xml> -H "Content-Type: application/octet-
 Simple anonymization interface can be accessed via a web browser at http://localhost:80/
 
 ### Automatically start on system boot
-To enable the automatic start of container on system boot, first create the container and then execute:
+To enable the automatic start of container on system boot, first run the container and then execute:
 
 $ cp docker-anonymization.service /etc/systemd/system/
 $ systemctl enable docker-anonymization.service
+$ systemctl start docker-anonymization
 
 To start/stop the container manually run:
 $ systemctl start docker-anonymization
