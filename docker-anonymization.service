@@ -1,0 +1,12 @@
+[Unit]
+Description=Anonimization Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=docker start marcell-annotation-pipeline_webapp_1
+ExecStop=docker stop marcell-annotation-pipeline_webapp_1
+
+[Install]
+WantedBy=default.target
