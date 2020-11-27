@@ -37,5 +37,8 @@ Simple anonymization interface can be accessed via a web browser at http://local
 To enable the automatic start of container on system boot, first create the container and then execute:
 
 $ cp docker-anonymization.service /etc/systemd/system/
-$ sudo systemctl enable docker-anonymization.service
+$ systemctl enable docker-anonymization.service
 
+To start/stop the container manually run:
+$ systemctl start docker-anonymization
+$ systemctl stop docker-anonymization
