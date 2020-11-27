@@ -21,16 +21,21 @@ $ docker-compose up -d
 
 ### Usage - Anonymization API
 
-The Anonymization API is listening for HTTP POST requests on port **5000** by default under the `/anonymize` path.
+The Anonymization API is listening for HTTP POST requests on port **80** by default under the `/anonymize` path.
 File in ***xml*** format should be passed via `--data-binary` option with content type set to  `application/octet-stream`.
 
 You can test the API with cURL:
 
 ```console
-$ curl -X POST --data-binary @<path_to_xml> -H "Content-Type: application/octet-stream" http://localhost:5000/anonymize 
+$ curl -X POST --data-binary @<path_to_xml> -H "Content-Type: application/octet-stream" http://localhost:80/anonymize 
 ```
 
 ### Usage - Simple UI
-Simple anonymization interface can be accessed via a web browser at http://localhost:5000/
+Simple anonymization interface can be accessed via a web browser at http://localhost:80/
 
+### Automatically start on system boot
+To enable the automatic start of container on system boot, first create the container and then execute:
+
+$ cp docker-anonymization.service /etc/systemd/system/
+$ sudo systemctl enable docker-anonymization.service
 
